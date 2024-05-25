@@ -211,7 +211,6 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
 
             <div className={styles.entry__navigation}>
               {entryType === 'signIn' ? 'Ще не зареєстрований(-а)?' : 'Вже зареєстрований(-на)?'}
-
               <button
                 type={'button'}
                 onClick={() => {
