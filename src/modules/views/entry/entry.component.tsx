@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useMutation } from '@tanstack/react-query'
 
@@ -15,7 +16,6 @@ import { useCommonStore, useUserCodeStore, useUserStore } from '@/shared/stores'
 import { namePattern, passwordPattern, phoneNumberPattern, required } from '@/shared/validation'
 
 import styles from './entry.module.scss'
-import Link from 'next/link'
 
 //interface
 interface IEntry {}

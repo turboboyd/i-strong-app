@@ -1,9 +1,11 @@
 'use client'
+import { useRouter } from 'next/navigation'
+
 import { FC } from 'react'
 
-import styles from './privacy-policy.module.scss'
 import { ButtonComponent, PageHeaderComponent } from '@/shared/components'
-import { useRouter } from 'next/navigation'
+
+import styles from './privacy-policy.module.scss'
 
 //interface
 interface ISettings {}
@@ -63,7 +65,7 @@ export const PrivacyPolicyComponent: FC<Readonly<ISettings>> = () => {
         бажанням, особисте фото; електронну пошту; геолокацію; IP-адресу; тип пристрою; особисті
         нотатки, котрими Ви будете ділитися впродовж користування додатком; історія Вашого
         спілкування з персоналом iStrong з використанням технологій ручного фіксування даних, в тому
-        числі стенографії та будь-яких запам'ятовувальних або реєстраційних пристроїв. Ми також
+        числі стенографії та будь-яких запам’ятовувальних або реєстраційних пристроїв. Ми також
         збираємо інформацію з мобільних пристроїв для кращої взаємодії з користувачем, хоча ці
         функції абсолютно необов’язкові:
       </p>

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss}\"",
-    "format": "yarn prettier && yarn lint",
+    "format": "npm run prettier && npm run lint",
     "build": "next build",
     "start": "next start"
   },

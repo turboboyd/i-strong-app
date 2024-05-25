@@ -79,9 +79,9 @@
     color: var(--accent-color-blue);
     text-decoration: underline;
   }
-  &__last{
+  &__last {
     display: grid;
-     grid-gap: 0.8rem;
+    grid-gap: 0.8rem;
     justify-items: right;
   }
   &__last_input {
