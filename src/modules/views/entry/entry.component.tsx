@@ -15,6 +15,7 @@ import { useCommonStore, useUserCodeStore, useUserStore } from '@/shared/stores'
 import { namePattern, passwordPattern, phoneNumberPattern, required } from '@/shared/validation'
 
 import styles from './entry.module.scss'
+import Link from 'next/link'
 
 //interface
 interface IEntry {}
@@ -37,7 +38,11 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
   })
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const [entryType, setEntryType] = useState<'signIn' | 'signUp'>('signIn')
+  const { entryType } = useCommonStore((state) => ({
+    entryType: state.entryType,
+  }))
+
+  const [isAgreed, setIsAgreed] = useState(false)
 
   const { mutate: postSignUp } = useMutation({
     mutationFn: (form: any) => postSignUpInfo(form),
@@ -134,7 +139,11 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
               rules={{ required: required, pattern: phoneNumberPattern }}
             />
 
-            <div className={styles.entry__last_input}>
+            <div
+              className={
+                entryType === 'signIn' ? `${styles.entry__last}` : `${styles.entry__last_input}`
+              }
+            >
               <Controller
                 control={control}
                 name={'password'}
@@ -167,7 +176,19 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
                   pattern: entryType === 'signUp' ? passwordPattern : undefined,
                 }}
               />
-
+              {entryType === 'signUp' && (
+                <div className={styles.entry__agreement}>
+                  <input
+                    type='checkbox'
+                    id='agreement'
+                    checked={isAgreed}
+                    onChange={() => setIsAgreed(!isAgreed)}
+                  />
+                  <label htmlFor='agreement' className='text-4'>
+                    Я погоджуюсь з <Link href={'privacy-policy'}>Політикою Конфіденційності</Link>
+                  </label>
+                </div>
+              )}
               {entryType === 'signIn' && (
                 <button
                   type={'button'}
@@ -181,7 +202,10 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
           </div>
 
           <div className={styles.entry__actions}>
-            <ButtonComponent type={'submit'} disabled={!isValid}>
+            <ButtonComponent
+              type={'submit'}
+              disabled={!isValid || (entryType === 'signUp' && !isAgreed)}
+            >
               {entryType === 'signIn' ? 'Увійти' : 'Зареєструватися'}
             </ButtonComponent>
 
@@ -193,7 +217,9 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
                 onClick={() => {
                   reset()
                   handleChangeCommonStore({ errorText: null })
-                  setEntryType(entryType === 'signIn' ? 'signUp' : 'signIn')
+                  useCommonStore.setState({
+                    entryType: entryType === 'signIn' ? 'signUp' : 'signIn',
+                  })
                 }}
                 className={styles.entry__sign_in}
               >
