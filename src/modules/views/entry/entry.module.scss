@@ -79,11 +79,53 @@
     color: var(--accent-color-blue);
     text-decoration: underline;
   }
-
-  &__last_input {
+  &__last {
     display: grid;
     grid-gap: 0.8rem;
     justify-items: right;
+  }
+  &__last_input {
+    display: grid;
+    grid-gap: 1.2rem;
+
+    .entry__agreement {
+      display: flex;
+      align-items: center;
+
+      input[type='checkbox'] {
+        flex-shrink: 0;
+        width: 1.6rem;
+        height: 1.6rem;
+        margin-right: 10px;
+        cursor: pointer;
+        appearance: none;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:checked {
+          background-color: white;
+        }
+
+        &:checked::after {
+          content: '✔';
+          font-size: 1.2rem;
+          color: var(--font-color-primary);
+        }
+      }
+
+      label {
+        cursor: pointer;
+
+        a {
+          color: var(--font-color-primary);
+          text-decoration: underline;
+        }
+      }
+    }
   }
 
   &__forget_btn {
