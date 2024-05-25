@@ -7,8 +7,9 @@ const config: CapacitorConfig = {
   server: {
     // url: 'http://192.168.88.41:3000',
     // url: 'http://192.168.178.54:3000/', // Denis
-    url: 'https://i-strong-app-fe.vercel.app/',
+    url: 'https://i-strong-app.vercel.app/',
     cleartext: true,
+    
   },
 
 }
