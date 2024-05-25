@@ -205,5 +205,7 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
       </div>
     </section>
   )
+
+  
 }
 export default EntryComponent
