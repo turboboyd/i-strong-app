@@ -1,0 +1,43 @@
+.diary_card {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border-primary);
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: var(--accent-color-yellow);
+    font-size: 1.2rem;
+    font-weight: 600;
+
+    & svg {
+      color: var(--font-color-grey);
+    }
+  }
+
+  &__main {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  &__text {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: pre-wrap;
+
+    color: var(--font-color-grey);
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1.4rem;
+  }
+}
