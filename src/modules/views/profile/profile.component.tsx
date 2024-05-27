@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 import { FC } from 'react'
 
@@ -28,6 +29,7 @@ const PROFILE_LINKS = (activeChallengeTypeButton: ChallengeType) => [
 
 //component
 export const ProfileComponent: FC<Readonly<IProfile>> = () => {
+  const router = useRouter()
   const handleChangeUserStore = useUserStore((state) => state.handleChangeUserStore)
   const { activeChallengeTypeButton } = useCommonStore((state) => ({
     activeChallengeTypeButton: state.activeChallengeTypeButton,
@@ -35,6 +37,7 @@ export const ProfileComponent: FC<Readonly<IProfile>> = () => {
   const { user } = useUserStore()
   const handleSignOut = () => {
     handleChangeUserStore({ user: null })
+    router.push('/')
   }
 
   //return
@@ -71,6 +74,9 @@ export const ProfileComponent: FC<Readonly<IProfile>> = () => {
             </Link>
           ))}
         </ul>
+        <Link className={`text-4-grey ${styles.profile_privacy}`} href={`/privacy-policy`}>
+          Політика конфіденційності
+        </Link>
       </div>
 
       <ButtonComponent onClick={handleSignOut}>Вийти</ButtonComponent>

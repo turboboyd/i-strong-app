@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 
 import { ButtonComponent, PageHeaderComponent } from '@/shared/components'
+import { useUserStore } from '@/shared/stores'
 
 import styles from './privacy-policy.module.scss'
 
@@ -12,8 +13,13 @@ interface ISettings {}
 
 //component
 export const PrivacyPolicyComponent: FC<Readonly<ISettings>> = () => {
+  const { user } = useUserStore()
   const router = useRouter()
+
   const handle = () => {
+    if (user) {
+      return router.push('/profile')
+    }
     router.push('/')
   }
   //return
