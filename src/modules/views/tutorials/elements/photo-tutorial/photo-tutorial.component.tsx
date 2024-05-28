@@ -22,21 +22,20 @@ import styles from './photo-tutorial.module.scss'
 const swiperPhotos = [
   { src: ImageSwiper1, key: 1 },
   { src: ImageSwiper2, key: 2 },
-  {
-    src: ImageSwiper3,
-    key: 3,
-  },
+  { src: ImageSwiper3, key: 3 },
   { src: ImageSwiper4, key: 4 },
   { src: ImageSwiper5, key: 5 },
 ]
 
 //interface
-interface IPhotoTutorial {}
+interface IPhotoTutorial {
+  array: any
+}
 
 //component
-export const PhotoTutorialComponent: FC<Readonly<IPhotoTutorial>> = () => {
+export const PhotoTutorialComponent: FC<Readonly<IPhotoTutorial>> = ({ array }) => {
   const [, setSwiper] = useState<SwiperRef['swiper'] | null>(null)
-
+  console.log(array)
   //return
   return (
     <div className={styles.photo_tutorial}>
@@ -47,15 +46,16 @@ export const PhotoTutorialComponent: FC<Readonly<IPhotoTutorial>> = () => {
         modules={[Autoplay, Pagination, EffectCreative]}
         slidesPerView={1}
         effect={'fade'}
-        pagination
+        pagination={{ clickable: true }}
         wrapperClass={styles.photo_tutorial__swiper_wrapper}
         speed={500}
+        loop={true}
       >
-        {swiperPhotos.map((product) => (
+        {array.map((product: any) => (
           <SwiperSlide key={product.key} className={styles.photo_tutorial__slide}>
             <div className={styles.photo_tutorial__image}>
               <Image
-                src={product.src}
+                src={product.image}
                 alt={'IStrong'}
                 fill
                 sizes={'(max-width: 768px) 30vw, 25vw'}
