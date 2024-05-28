@@ -1,4 +1,5 @@
 'use client'
+import { steps } from './data'
 import PhotoTutorialComponent from './elements/photo-tutorial/photo-tutorial.component'
 
 import { FC, useState } from 'react'
@@ -16,35 +17,34 @@ interface ITutorials {}
 //component
 export const TutorialsComponent: FC<Readonly<ITutorials>> = () => {
   const [expandedItem, setExpandedItem] = useState(1)
-
+  console.log('🚀 ~ steps:', steps)
   //return
   return (
     <section className={`${styles.tutorials} container`}>
       <h1 className={`${styles.tutorials__title} title`}>Інструкції</h1>
-
       <div className={styles.tutorials__content}>
-        {[1, 2].map((item) => (
-          <div className={styles.tutorials__box} key={item}>
+        {steps.map((item) => (
+          <div className={styles.tutorials__box} key={item.id}>
             <div
-              className={`${styles.tutorials__box_title} ${expandedItem === item && styles.expanded}`}
+              className={`${styles.tutorials__box_title} ${expandedItem === item.id && styles.expanded}`}
             >
-              <p>
-                {item % 2 === 1
-                  ? 'Як справитися зі страхом самотності?'
-                  : 'Що робити коли не можеш позбутися відчуття самотності?'}
-              </p>
+              <p>{item.title}</p>
 
               <div
-                className={`${styles.tutorials__box_wrapper} ${expandedItem === item && styles.expanded}`}
+                className={`${styles.tutorials__box_wrapper} ${expandedItem === item.id && styles.expanded}`}
               >
                 <div className={styles.tutorials__box_inner}>
-                  {item % 2 === 1 ? <PhotoTutorialComponent /> : <VideoTutorialComponent />}
+                  {item.type === `photo` ? (
+                    <PhotoTutorialComponent array={item.array} />
+                  ) : (
+                    <VideoTutorialComponent />
+                  )}
                 </div>
               </div>
 
               <button
-                onClick={() => setExpandedItem(expandedItem === item ? -1 : item)}
-                className={`${styles.tutorials__box_btn} ${expandedItem === item && styles.expanded}`}
+                onClick={() => setExpandedItem(expandedItem === item.id ? -1 : item.id)}
+                className={`${styles.tutorials__box_btn} ${expandedItem === item.id && styles.expanded}`}
               >
                 <IconUpArrow />
               </button>

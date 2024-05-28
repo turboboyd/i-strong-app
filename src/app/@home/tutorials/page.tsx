@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 
-import TutorialsComponent from '../../../modules/views/tutorials/tutorials.component'
+import { TutorialsComponent } from '@/modules/views/tutorials'
 
 // page
 const TutorialsPage: NextPage = () => {
