@@ -4,6 +4,7 @@ import { devtools } from 'zustand/middleware'
 import { ReactNode } from 'react'
 
 import { ChallengeType } from '@/interfaces/challenge'
+import { ISignUp } from '@/interfaces/entry'
 
 interface IState {
   errorText: null | string
@@ -12,6 +13,8 @@ interface IState {
   isModalActive: boolean
   modalContent: null | ReactNode
   activeChallengeTypeButton: ChallengeType
+  registerForm: Partial<ISignUp> | null
+  isAgreedForm: boolean
 }
 
 interface IStore extends IState {
@@ -28,6 +31,8 @@ export const useCommonStore = create<IStore>()(
       isModalActive: false,
       modalContent: null,
       activeChallengeTypeButton: 'new',
+      registerForm: null,
+      isAgreedForm: false,
       handleChangeCommonStore: (value) => set((state) => ({ ...state, ...value })),
     }),
     { enabled: process.env.NODE_ENV !== 'production' },
