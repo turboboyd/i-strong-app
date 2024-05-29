@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useMutation } from '@tanstack/react-query'
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 import { postSignInInfo, postSignUpInfo } from '@/api/entry'
@@ -27,27 +27,37 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
   const handleChangeUserStore = useUserStore((state) => state.handleChangeUserStore)
   const handleChangeCommonStore = useCommonStore((state) => state.handleChangeCommonStore)
   const { setUserData } = useUserCodeStore()
+  const { registerForm, entryType, isAgreedForm } = useCommonStore((state) => ({
+    registerForm: state.registerForm,
+    entryType: state.entryType,
+    isAgreedForm: state.isAgreedForm,
+  }))
+
   const {
     handleSubmit,
     control,
     reset,
     formState: { isValid },
+    watch,
   } = useForm<ISignUp>({
     mode: 'onTouched',
     reValidateMode: 'onChange',
+    defaultValues: registerForm || { username: '', phone_number: '', password: '' },
   })
 
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
-  const { entryType } = useCommonStore((state) => ({
-    entryType: state.entryType,
-  }))
-
-  const [isAgreed, setIsAgreed] = useState(false)
-
+  const resetForm = () => {
+    reset({ username: '', phone_number: '', password: '' })
+    handleChangeCommonStore({
+      errorText: null,
+      registerForm: { username: '', phone_number: '', password: '' },
+      isAgreedForm: false,
+    })
+  }
   const { mutate: postSignUp } = useMutation({
     mutationFn: (form: any) => postSignUpInfo(form),
-
     onSuccess: (data: any, variables) => {
+      resetForm()
       setUserData(variables)
       router.push('sing-up?step=code')
     },
@@ -68,12 +78,17 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
   }
 
   const handleForgetPassword = () => {
-    reset()
-    handleChangeCommonStore({ errorText: null })
+    resetForm()
     router.push('/reset-password')
   }
 
-  //return
+  useEffect(() => {
+    const subscription = watch((value) => {
+      handleChangeCommonStore({ registerForm: value })
+    })
+    return () => subscription.unsubscribe()
+  }, [watch, handleChangeCommonStore])
+
   return (
     <section className={`${styles.entry} container`}>
       <div className={`${styles.entry__background} ${entryType === 'signIn' && styles.sign_in}`}>
@@ -96,7 +111,7 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
                 control={control}
                 name={'username'}
                 key={`${entryType}-username`}
-                defaultValue={''}
+                defaultValue={registerForm?.username || ''}
                 render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                   <InputComponent
                     value={value || ``}
@@ -121,7 +136,7 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
               control={control}
               name={'phone_number'}
               key={`${entryType}-phone_number`}
-              defaultValue={''}
+              defaultValue={registerForm?.phone_number || ''}
               render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                 <InputComponent
                   inputId={`${entryType}-phone_number`}
@@ -148,11 +163,11 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
               <Controller
                 control={control}
                 name={'password'}
-                defaultValue={''}
+                defaultValue={registerForm?.password || ''}
                 key={`${entryType}-password`}
                 render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (
                   <InputComponent
-                    inputId={`${entryType}-username`}
+                    inputId={`${entryType}-password`}
                     value={value || ``}
                     onBlur={onBlur}
                     onChange={onChange}
@@ -182,8 +197,12 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
                   <input
                     type='checkbox'
                     id='agreement'
-                    checked={isAgreed}
-                    onChange={() => setIsAgreed(!isAgreed)}
+                    checked={isAgreedForm}
+                    onChange={() =>
+                      handleChangeCommonStore({
+                        isAgreedForm: !isAgreedForm,
+                      })
+                    }
                   />
                   <label htmlFor='agreement' className='text-4'>
                     Я погоджуюсь з <Link href={'privacy-policy'}>Політикою Конфіденційності</Link>
@@ -205,7 +224,7 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
           <div className={styles.entry__actions}>
             <ButtonComponent
               type={'submit'}
-              disabled={!isValid || (entryType === 'signUp' && !isAgreed)}
+              disabled={!isValid || (entryType === 'signUp' && !isAgreedForm)}
             >
               {entryType === 'signIn' ? 'Увійти' : 'Зареєструватися'}
             </ButtonComponent>
@@ -215,8 +234,7 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
               <button
                 type={'button'}
                 onClick={() => {
-                  reset()
-                  handleChangeCommonStore({ errorText: null })
+                  resetForm()
                   useCommonStore.setState({
                     entryType: entryType === 'signIn' ? 'signUp' : 'signIn',
                   })

@@ -122,7 +122,7 @@ export const ChallengeComponent: FC<Readonly<IChallengeComponent>> = () => {
           ) : (
             <div className={styles.challenge__area}>
               <label htmlFor='challenge-impressions' className={`text-4`}>
-               Нотатки
+                Нотатки
               </label>
               <textarea
                 id='challenge-impressions'
