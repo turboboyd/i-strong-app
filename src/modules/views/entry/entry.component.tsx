@@ -68,6 +68,7 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
   }
 
   const handleForgetPassword = () => {
+    reset()
     handleChangeCommonStore({ errorText: null })
     router.push('/reset-password')
   }
