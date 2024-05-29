@@ -118,7 +118,7 @@ export const ChallengeComponent: FC<Readonly<IChallengeComponent>> = () => {
 
         {challenge.track_diary &&
           (disableInteraction ? (
-            <p className={`text-4 `}>Ти вже виконав цей челедж </p>
+            <p className={`text-2 text-cent`}>Ти вже виконав цей челедж </p>
           ) : (
             <div className={styles.challenge__area}>
               <label htmlFor='challenge-impressions' className={`text-4`}>
