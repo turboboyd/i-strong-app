@@ -18,7 +18,7 @@ export const NotesComponent: FC<Readonly<INotes>> = () => {
   const [extendedNote, setExtendedNote] = useState<null | string>(null)
 
   const { data: diaryNotes, refetch: notesRefetch } = useGetNotes(token ?? '')
-
+  const notes = Array.isArray(diaryNotes?.notes) ? diaryNotes.notes : []
   const {
     data: allNotesByChallenge,
     refetch: allNotesByChallengeRefetch,
@@ -36,7 +36,7 @@ export const NotesComponent: FC<Readonly<INotes>> = () => {
   //return
   return (
     <div className={styles.notes}>
-      {diaryNotes?.notes?.map((challenge, index) => (
+      {notes?.map((challenge, index) => (
         <div className={styles.notes__record_block} key={`${challenge.challenge.id}-${index}`}>
           <p>{challenge.challenge.title}</p>
 

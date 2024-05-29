@@ -48,7 +48,7 @@ export const DiaryComponent: FC<Readonly<IDiary>> = () => {
   }
 
   const { data: diaryRecords, refetch: diaryRecordsRefetch } = useGetDiaryRecords(token ?? '')
-
+  console.log(diaryRecords)
   const {
     data: diaryRecordsByDate,
     refetch: diaryRecordsByDateRefetch,
