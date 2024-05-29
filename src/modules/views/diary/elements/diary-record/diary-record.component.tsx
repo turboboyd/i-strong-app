@@ -133,7 +133,7 @@ export const DiaryRecordComponent: FC<Readonly<IDiaryRecord>> = () => {
             key={`title`}
             defaultValue={singleDiaryRecord?.title ?? ''}
             render={({ field: { value, onChange } }) => (
-              <input
+              <textarea
                 value={value}
                 onChange={onChange}
                 className={styles.diary_record__title_input}
