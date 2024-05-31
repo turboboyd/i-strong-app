@@ -58,7 +58,7 @@ export const SectionSwiperComponent: FC<Readonly<ISectionSwiper>> = ({
               spaceBetween={8}
               slidesPerView={3}
               grabCursor={true}
-              style={{ ...(type === 'Challenge' && { paddingTop: '8px' }) }}
+              style={{ ...(type === 'Challenge' && { height: "19rem", paddingTop: '8px' }) }}
             >
               {data?.map((slide: ISlideData) => (
                 <SwiperSlide key={slide?.id}>
