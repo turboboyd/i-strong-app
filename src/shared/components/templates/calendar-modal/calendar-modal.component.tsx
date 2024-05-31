@@ -5,6 +5,8 @@ import { IconButtonComponent } from '@/shared/components/ui/icon-button'
 import { IconClose } from '@/shared/icons'
 import { useCommonStore } from '@/shared/stores'
 
+import { BaseModalComponent } from '../base-modal'
+
 import styles from './calendar-modal.module.scss'
 
 //interface
@@ -23,13 +25,15 @@ export const CalendarModalComponent: FC<Readonly<ICalendarModal>> = ({ value, on
 
   //return
   return (
-    <div className={styles.calendar_modal}>
-      <IconButtonComponent onClick={handleClose} name={'close'}>
-        <IconClose />
-      </IconButtonComponent>
+    <BaseModalComponent>
+      <div className={styles.calendar_modal}>
+        <IconButtonComponent onClick={handleClose} name={'close'}>
+          <IconClose />
+        </IconButtonComponent>
 
-      <DateRangePicker value={value} onChange={onChange} />
-    </div>
+        <DateRangePicker value={value} onChange={onChange} />
+      </div>
+    </BaseModalComponent>
   )
 }
 export default CalendarModalComponent

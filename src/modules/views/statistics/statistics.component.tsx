@@ -9,11 +9,7 @@ import { FC, useEffect, useState } from 'react'
 
 import { useGetStatistics } from '@/api/mood-tracker'
 import { EmotionsChartComponent } from '@/modules/views/statistics/elements'
-import {
-  BaseModalComponent,
-  ModalGettingToInstructionsComponent,
-  PageHeaderComponent,
-} from '@/shared/components'
+import { ModalGettingToInstructionsComponent, PageHeaderComponent } from '@/shared/components'
 import { CalendarModalComponent } from '@/shared/components/templates/calendar-modal'
 import { SelectComponent } from '@/shared/components/ui/select'
 import { useQuerySearchParams } from '@/shared/hooks/useQuerySearchParams'
@@ -59,7 +55,6 @@ export const StatisticsComponent: FC<Readonly<IStatistics>> = () => {
       ? removeMilliseconds(searchParams.get('end_date')?.toString())
       : removeMilliseconds(moment().endOf('day').toString()),
   })
-
   const getDateRange = () => {
     if (searchParams.get('start_date') && searchParams.get('end_date')) {
       if (
@@ -150,23 +145,7 @@ export const StatisticsComponent: FC<Readonly<IStatistics>> = () => {
         </p>
       </div>
 
-      {/*<div className={styles.statistics__cards}>*/}
-      {/*  <div className={styles.statistics__card}>*/}
-      {/*    <p className={styles.statistics__card_title}>Виконано челенджів</p>*/}
-      {/*    1/3*/}
-      {/*  </div>*/}
-
-      {/*  <div className={`${styles.statistics__card} ${styles.yellow}`}>*/}
-      {/*    <p className={styles.statistics__card_title}>Зароблено монеток</p>*/}
-      {/*    10*/}
-      {/*  </div>*/}
-      {/*</div>*/}
-
-      {isModalActive && (
-        <BaseModalComponent>
-          <CalendarModalComponent value={dates} onChange={handleSetDates} />
-        </BaseModalComponent>
-      )}
+      {isModalActive && <CalendarModalComponent value={dates} onChange={handleSetDates} />}
 
       <ModalGettingToInstructionsComponent
         title='Тут ти можеш відслідковувати свій стан та досягнення, а відмічаючи впродовж дня свої емоції зможеш заробити'
