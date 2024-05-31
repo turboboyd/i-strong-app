@@ -23,11 +23,6 @@ interface IEmotionsChart {
 
 //component
 export const EmotionsChartComponent: FC<Readonly<IEmotionsChart>> = ({ emotions }) => {
-  const getHeight = () => {
-    const sortedMoods = Object.values(emotions).sort((a: any, b: any) => b - a)
-    return sortedMoods[0] * 2 + 80
-  }
-
   const getPercent = (key: string) => {
     switch (key) {
       case 'sad':
@@ -47,14 +42,14 @@ export const EmotionsChartComponent: FC<Readonly<IEmotionsChart>> = ({ emotions 
   return (
     <>
       {Object.entries(emotions).length ? (
-        <section className={styles.emotions_chart} style={{ height: getHeight() }}>
+        <section className={styles.emotions_chart}>
           {MOODS.map((item) => (
             <div className={styles.emotions_chart__item} key={item.key}>
               {item.icon}
 
               <AnimatePresence mode={'wait'}>
                 <motion.div
-                  key={item.key}
+                  key={`${item.key}-${getPercent(item.key)}`}
                   initial={{ height: 2 }}
                   animate={{ height: getPercent(item.key) * 2 }}
                   exit={{ height: 0 }}
