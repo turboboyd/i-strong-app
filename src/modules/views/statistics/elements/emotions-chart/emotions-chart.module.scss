@@ -2,7 +2,7 @@
   display: grid;
   align-items: end;
   grid-template-columns: repeat(4, 1fr);
-
+  height: 25rem;
   &__item {
     display: grid;
     justify-items: center;

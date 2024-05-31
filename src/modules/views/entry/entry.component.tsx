@@ -66,6 +66,7 @@ export const EntryComponent: FC<Readonly<IEntry>> = () => {
   const { mutate: postSignIn } = useMutation({
     mutationFn: (form: any) => postSignInInfo(form),
     onSuccess: (data: any) => {
+      resetForm()
       handleChangeUserStore({ user: data?.user })
       router.push('/')
     },
