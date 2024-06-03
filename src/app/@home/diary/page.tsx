@@ -1,5 +1,6 @@
-import { DiaryComponent } from '@/modules/views/diary'
 import { NextPage } from 'next'
+
+import { DiaryComponent } from '@/modules/views/diary'
 
 // page
 const DiaryPage: NextPage = () => {

@@ -17,7 +17,6 @@ interface IHome {}
 export const HomeComponent: FC<Readonly<IHome>> = () => {
   useBackButtonExit()
   const { challengeCurrentDetailsMutate, status, challenges } = useCurrentChallengeDetails()
-  console.log('🚀 ~ challenges:', challenges)
 
   useEffect(() => {
     challengeCurrentDetailsMutate()
