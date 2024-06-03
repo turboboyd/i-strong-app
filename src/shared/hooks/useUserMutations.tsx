@@ -9,7 +9,7 @@ import {
   postVerifyCode,
 } from '@/api/entry'
 import { ISignUp } from '@/interfaces/entry'
-import { useUserCodeStore, useUserStore } from '@/shared/stores'
+import { useCommonStore, useUserCodeStore, useUserStore } from '@/shared/stores'
 
 interface IVerifyCode {
   phone: string
@@ -110,19 +110,19 @@ export const usePasswordResetVerify = () => {
 
 export const useNewPassword = () => {
   const router = useRouter()
+  const handleChangeCommonStore = useCommonStore((state) => state.handleChangeCommonStore)
   const { mutate, status } = useMutation({
     mutationFn: (data: IPasswordChange) => {
-      console.log(data)
       const cleanedData = {
         phone_number: cleanPhoneNumber(data.phone_number),
         new_password: data.new_password,
       }
-      console.log('🚀 ~ useNewPassword ~ cleanedData:', cleanedData)
 
       return postNewPassword(cleanedData)
     },
-    onSuccess: () => {
+    onSuccess: (data: any) => {
       router.push('/')
+      handleChangeCommonStore({ successfulText: data.message })
     },
     onError: handleError,
   })
