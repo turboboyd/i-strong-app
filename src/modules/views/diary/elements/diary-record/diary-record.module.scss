@@ -33,6 +33,8 @@
   &__editor_box {
     display: grid;
     gap: 2.4rem;
+    word-wrap: break-word;
+    word-break: break-word;
   }
 
   &__title_input {
