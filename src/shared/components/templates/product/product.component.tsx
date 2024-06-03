@@ -73,7 +73,7 @@ const ProductComponent: FC<IProductComponent> = ({ giftId, product }) => {
 
       <ButtonComponent
         type='submit'
-        disabled={(user?.coins ?? 0) <= price}
+        disabled={(user?.coins ?? 0) < price}
         onClick={handleOrderClick}
       >
         Замовити

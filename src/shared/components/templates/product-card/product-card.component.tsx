@@ -34,11 +34,11 @@ const ProductCardComponent: React.FC<IProductCard> = ({ product }) => {
       <Link href={`/store?product=${product.id}`}>
         <div className={`${styles.card__img_wrap}`}>
           <Image className={styles.card__img} src={product.main_image} alt={product.name} fill />
-          <div
-            className={` ${(user?.coins ?? 0) <= product.price ? styles.card__img_wrap_background : ''}`}
-          >
-            <p>Недостатньо монеток</p>
-          </div>
+          {(user?.coins ?? 0) < product.price && (
+            <div className={styles.card__img_wrap_background}>
+              <p>Недостатньо монеток</p>
+            </div>
+          )}
           <CoinsDisplayComponent classPosition={styles.card__img_wrap_block} coin={product.price} />
         </div>
       </Link>

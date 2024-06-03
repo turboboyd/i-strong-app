@@ -27,7 +27,7 @@ interface ICleanedData {
 
 interface IPasswordChange {
   phone_number: string
-  newPassword: string
+  new_password: string
 }
 
 const cleanPhoneNumber = (phone: string): string => phone.replace(/[^0-9]/g, '')
@@ -112,10 +112,13 @@ export const useNewPassword = () => {
   const router = useRouter()
   const { mutate, status } = useMutation({
     mutationFn: (data: IPasswordChange) => {
+      console.log(data)
       const cleanedData = {
         phone_number: cleanPhoneNumber(data.phone_number),
-        new_password: data.newPassword,
+        new_password: data.new_password,
       }
+      console.log('🚀 ~ useNewPassword ~ cleanedData:', cleanedData)
+
       return postNewPassword(cleanedData)
     },
     onSuccess: () => {
