@@ -33,7 +33,7 @@ export const ChallengeComponent: FC<Readonly<IChallengeComponent>> = () => {
       statusCompleteChallenge === 'success',
     [challenge, statusCompleteChallenge],
   )
-
+  console.log(challenge)
   const isButtonDisabled = useMemo(
     () => disableInteraction || (challenge?.track_diary && note.length < 50),
     [disableInteraction, challenge, note],
