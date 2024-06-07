@@ -45,6 +45,14 @@ export const DiaryRecordComponent: FC<Readonly<IDiaryRecord>> = () => {
     status,
   } = useGetSingleRecord(token ?? '', searchParams.get('record_id') ?? '')
 
+  const cleanText = (text: string) => {
+    if (text.length <= 2) {
+      return ''
+    }
+    const cleanedText = text.substring(1, text.length - 1)
+    return cleanedText
+  }
+
   const editor = useEditor({
     content: '',
     extensions: [
@@ -72,19 +80,20 @@ export const DiaryRecordComponent: FC<Readonly<IDiaryRecord>> = () => {
   }, [searchParams.get('record_id')])
 
   useEffect(() => {
-    editor?.commands.setContent(singleDiaryRecord?.note ?? '')
+    const cleanedNote = cleanText(singleDiaryRecord?.note ?? '')
+    editor?.commands.setContent(cleanedNote)
   }, [singleDiaryRecord, editor])
 
   const { mutate: postDiaryNote } = useMutation({
     mutationFn: (form: any) => postDiaryRecord(form, token ?? ''),
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       router.back()
     },
   })
   const { mutate: updateDiaryNote } = useMutation({
     mutationFn: (form: any) =>
       updateDiaryRecord(form, token ?? '', searchParams.get('record_id') ?? ''),
-    onSuccess: (data: any) => {
+    onSuccess: () => {
       router.back()
     },
   })

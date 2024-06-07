@@ -3,7 +3,7 @@
 	"appName": "IStrong",
 	"webDir": "out",
 	"server": {
-		"url": "https://front.istrongapp.com",
+		"url": "https://i-strong-app.vercel.app/",
 		"cleartext": true
 	}
 }
