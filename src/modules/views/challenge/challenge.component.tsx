@@ -22,7 +22,7 @@ interface IChallengeComponent {}
 
 //component
 export const ChallengeComponent: FC<Readonly<IChallengeComponent>> = () => {
-  useKeyboardHandler()
+  // useKeyboardHandler()
   //test top
   const searchParams = useSearchParams()
   const challenge_id = Number(searchParams.get('id'))
