@@ -68,7 +68,7 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
   scheduleNotification()
   const scheduleNotification2 = async () => {
     await LocalNotifications.requestPermissions()
-  
+
     await LocalNotifications.schedule({
       notifications: [
         {
@@ -90,7 +90,7 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
       ],
     })
   }
-  
+
   scheduleNotification2()
   //return
   return (
