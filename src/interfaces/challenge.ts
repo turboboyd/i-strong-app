@@ -15,6 +15,7 @@ export interface ISubtask {
   day_number: number
   is_completed: boolean
   points: number
+  description: string
 }
 
 export interface IChallengeData {
