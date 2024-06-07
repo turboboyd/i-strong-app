@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { FC } from 'react'
 
 import { ChallengeType } from '@/interfaces/challenge'
+import { AvatarComponent } from '@/modules/views/profile/elements'
 import { ButtonComponent, CoinsDisplayComponent } from '@/shared/components'
 import { IconAnalytic, IconChallenge, IconSetting, IconShop, IconWishList } from '@/shared/icons'
 import { ImageAvatar } from '@/shared/images'
@@ -31,14 +32,23 @@ const PROFILE_LINKS = (activeChallengeTypeButton: ChallengeType) => [
 export const ProfileComponent: FC<Readonly<IProfile>> = () => {
   const router = useRouter()
   const handleChangeUserStore = useUserStore((state) => state.handleChangeUserStore)
-  const { activeChallengeTypeButton } = useCommonStore((state) => ({
-    activeChallengeTypeButton: state.activeChallengeTypeButton,
-  }))
+  const { activeChallengeTypeButton, isAvatarModalActive, handleChangeCommonStore } =
+    useCommonStore((state) => ({
+      activeChallengeTypeButton: state.activeChallengeTypeButton,
+      isAvatarModalActive: state.isModalActive,
+      handleChangeCommonStore: state.handleChangeCommonStore,
+    }))
   const { user } = useUserStore()
   const handleSignOut = () => {
     handleChangeUserStore({ user: null })
     router.push('/')
   }
+  const handleAvatarClick = () => {
+    handleChangeCommonStore({ isModalActive: true })
+  }
+  const { avatarImage } = useCommonStore((state) => ({
+    avatarImage: state.avatarImage,
+  }))
 
   //return
   return (
@@ -47,12 +57,11 @@ export const ProfileComponent: FC<Readonly<IProfile>> = () => {
         <h1 className={`title`}>Мій кабінет</h1>
 
         <div className={styles.profile__user}>
-          <div className={styles.profile__photo}>
+          <div className={styles.profile__photo} onClick={handleAvatarClick}>
             <Image
-              src={ImageAvatar}
+              src={avatarImage ? avatarImage : ImageAvatar.src}
               alt={'name photo'}
               fill
-              placeholder={'blur'}
               sizes={'40vw'}
               style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
@@ -80,6 +89,7 @@ export const ProfileComponent: FC<Readonly<IProfile>> = () => {
       </div>
 
       <ButtonComponent onClick={handleSignOut}>Вийти</ButtonComponent>
+      {isAvatarModalActive && <AvatarComponent />}
     </section>
   )
 }

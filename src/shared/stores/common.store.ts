@@ -7,6 +7,7 @@ import { ChallengeType } from '@/interfaces/challenge'
 import { ISignUp } from '@/interfaces/entry'
 
 interface IState {
+  avatarImage: string | null
   errorText: null | string
   successfulText: null | string
   entryType: 'signIn' | 'signUp'
@@ -25,6 +26,7 @@ interface IStore extends IState {
 export const useCommonStore = create<IStore>()(
   devtools(
     (set) => ({
+      avatarImage: null,
       errorText: null,
       successfulText: null,
       entryType: 'signIn',
