@@ -51,7 +51,7 @@ export const DiaryNoteCardComponent: FC<Readonly<IDiaryNoteCard>> = ({
   const handleDeleteRecord = () => {
     postDeleteNote(item.id.toString())
   }
-
+  const modifiedNote = item.note.slice(1, -1)
   //return
   return (
     <article className={styles.diary_card} onClick={handleOpenExistingRecord}>
@@ -68,7 +68,7 @@ export const DiaryNoteCardComponent: FC<Readonly<IDiaryNoteCard>> = ({
       <div className={styles.diary_card__main}>
         <p className={styles.diary_card__title}>{item?.title}</p>
 
-        <p className={styles.diary_card__text}>{item?.note}</p>
+        <p className={styles.diary_card__text}>{modifiedNote}</p>
       </div>
     </article>
   )

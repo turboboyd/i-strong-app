@@ -71,8 +71,21 @@ export const NoteRecordComponent: FC<Readonly<INoteRecord>> = () => {
     noteRefetch()
   }, [searchParams.get('record_id')])
 
+  const cleanText = (text: string) => {
+    if (text.length <= 2) {
+      return ''
+    }
+    const cleanedText = text.substring(1, text.length - 1)
+    return cleanedText
+  }
+
+  // useEffect(() => {
+  //   editor?.commands.setContent(singleNote?.note ?? '')
+  // }, [singleNote, editor])
+
   useEffect(() => {
-    editor?.commands.setContent(singleNote?.note ?? '')
+    const cleanedNote = cleanText(singleNote?.note ?? '')
+    editor?.commands.setContent(cleanedNote)
   }, [singleNote, editor])
 
   const { mutate: updateNote } = useMutation({

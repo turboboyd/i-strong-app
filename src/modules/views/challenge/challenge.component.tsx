@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 
+import useKeyboardHandler from './test'
+
 import { FC, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { IChallengeData } from '@/interfaces/challenge'
@@ -20,6 +22,8 @@ interface IChallengeComponent {}
 
 //component
 export const ChallengeComponent: FC<Readonly<IChallengeComponent>> = () => {
+  // useKeyboardHandler()
+  //test top
   const searchParams = useSearchParams()
   const challenge_id = Number(searchParams.get('id'))
   const { challengeByIdMutate, status, challenge } = useChallengeById()
@@ -33,7 +37,7 @@ export const ChallengeComponent: FC<Readonly<IChallengeComponent>> = () => {
       statusCompleteChallenge === 'success',
     [challenge, statusCompleteChallenge],
   )
-
+  console.log(challenge)
   const isButtonDisabled = useMemo(
     () => disableInteraction || (challenge?.track_diary && note.length < 50),
     [disableInteraction, challenge, note],
@@ -122,7 +126,7 @@ export const ChallengeComponent: FC<Readonly<IChallengeComponent>> = () => {
           ) : (
             <div className={styles.challenge__area}>
               <label htmlFor='challenge-impressions' className={`text-4`}>
-                Нотатки
+                {challenge.current_subtask?.description}
               </label>
               <textarea
                 id='challenge-impressions'
