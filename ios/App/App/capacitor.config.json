@@ -1,9 +1,0 @@
-{
-	"appId": "com.example.app",
-	"appName": "IStrong",
-	"webDir": "out",
-	"server": {
-		"url": "https://i-strong-app.vercel.app/",
-		"cleartext": true
-	}
-}
