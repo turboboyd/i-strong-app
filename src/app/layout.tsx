@@ -48,44 +48,25 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
   }, [errorText, successfulText])
 
   const { queryClient } = useTanStackClient()
+  const scheduleNotification = async () => {
+    await LocalNotifications.requestPermissions()
 
-  useEffect(() => {
-    const handleClick = () => {
-      if (errorText) {
-        handleChangeCommonStore({ errorText: null })
-        // Trigger notification on error
-        LocalNotifications.schedule({
-          notifications: [
-            {
-              title: 'Error',
-              body: errorText,
-              id: 2,
-              schedule: { at: new Date(Date.now() + 1000) },
-            },
-          ],
-        })
-      } else if (successfulText) {
-        handleChangeCommonStore({ successfulText: null })
-        // Trigger notification on success
-        LocalNotifications.schedule({
-          notifications: [
-            {
-              title: 'Success',
-              body: successfulText,
-              id: 3,
-              schedule: { at: new Date(Date.now() + 1000) },
-            },
-          ],
-        })
-      }
-    }
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: 'Тестовое уведомление',
+          body: 'Это тестовое уведомление, которое приходит каждую минуту.',
+          id: 1,
+          schedule: { every: 'minute' },
+          actionTypeId: '',
+          extra: null,
+        },
+      ],
+    })
+  }
 
-    document.addEventListener('click', handleClick)
+  scheduleNotification()
 
-    return () => {
-      document.removeEventListener('click', handleClick)
-    }
-  }, [errorText, successfulText])
   //return
   return (
     <html lang='uk' className={mainFont.className}>
