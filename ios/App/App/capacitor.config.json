@@ -6,6 +6,14 @@
 		"url": "https://i-strong-app.vercel.app/",
 		"cleartext": true
 	},
+	"android": {
+		"allowMixedContent": true,
+		"webContentsDebuggingEnabled": true
+	},
+	"ios": {
+		"contentInset": "always",
+		"backgroundColor": "#ffffff"
+	},
 	"packageClassList": [
 		"AppPlugin"
 	]

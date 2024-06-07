@@ -25,7 +25,7 @@ export const HomeComponent: FC<Readonly<IHome>> = () => {
   //return
   return (
     <div className={`${styles.home} container`}>
-      <h1 className={`${styles.home__title} title`}>Головна</h1>
+      <h1 className={`${styles.home__title} title`}>Головна 111</h1>
 
       <SectionSwiperComponent
         title={'Щоденні челенджі'}
