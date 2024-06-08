@@ -17,6 +17,7 @@ import { initialMetadata, initialViewport } from '@/metadata'
 import { RootLayoutComponent } from '@/modules/layouts'
 import { useTanStackClient } from '@/packages/tanstack-client'
 import { useCommonStore } from '@/shared/stores'
+import useKeyboard from '@/utils/native-app/keyboard'
 import { scheduleNotifications } from '@/utils/native-app/notifications'
 
 //interface
@@ -47,9 +48,8 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
       document.removeEventListener('click', handleClick)
     }
   }, [errorText, successfulText])
-
+  useKeyboard()
   useEffect(() => {
-    // Schedule notifications when the component mounts
     scheduleNotifications()
   }, [])
 

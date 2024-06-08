@@ -1,6 +1,7 @@
-import { useEffect } from 'react'
-import { Keyboard, KeyboardInfo } from '@capacitor/keyboard'
 import { Capacitor } from '@capacitor/core'
+import { Keyboard, KeyboardInfo } from '@capacitor/keyboard'
+
+import { useEffect } from 'react'
 
 const useKeyboard = () => {
   useEffect(() => {
@@ -47,6 +48,9 @@ const useKeyboard = () => {
       console.log('Input focused, disabling scroll and showing accessory bar')
       await Keyboard.setScroll({ isDisabled: true })
       await Keyboard.setAccessoryBarVisible({ isVisible: true })
+      // if (Capacitor.platform === 'ios') {
+      //   await Keyboard.setStyle({ style: KeyboardStyle.Dark }); // Установка темного стиля клавиатуры
+      // }
     }
 
     const handleBlur = async () => {
