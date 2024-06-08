@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core'
 import { Keyboard } from '@capacitor/keyboard'
 
 import { useEffect } from 'react'
@@ -23,22 +24,26 @@ const useKeyboard = () => {
     }
 
     const handleScroll = () => {
+      console.log('Scroll detected, hiding keyboard')
       Keyboard.hide()
     }
 
     const handleClickOutside = (event: Event) => {
       const target = event.target as HTMLElement
       if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+        console.log('Click outside detected, hiding keyboard')
         Keyboard.hide()
       }
     }
 
     const handleFocus = async () => {
+      console.log('Input focused, disabling scroll and showing accessory bar')
       await Keyboard.setScroll({ isDisabled: true })
       await Keyboard.setAccessoryBarVisible({ isVisible: true })
     }
 
     const handleBlur = async () => {
+      console.log('Input blurred, enabling scroll and hiding accessory bar')
       await Keyboard.setScroll({ isDisabled: false })
       await Keyboard.setAccessoryBarVisible({ isVisible: false })
     }
@@ -50,7 +55,9 @@ const useKeyboard = () => {
     Keyboard.addListener('keyboardDidHide', handleKeyboardDidHide)
 
     // Подписка на события прокрутки и клика вне инпута
-    window.addEventListener('scroll', handleScroll)
+    if (Capacitor.isNativePlatform()) {
+      window.addEventListener('scroll', handleScroll)
+    }
     document.addEventListener('click', handleClickOutside)
     document.addEventListener('focusin', handleFocus)
     document.addEventListener('focusout', handleBlur)
@@ -58,7 +65,9 @@ const useKeyboard = () => {
     return () => {
       // Отписка от событий при размонтировании компонента
       Keyboard.removeAllListeners()
-      window.removeEventListener('scroll', handleScroll)
+      if (Capacitor.isNativePlatform()) {
+        window.removeEventListener('scroll', handleScroll)
+      }
       document.removeEventListener('click', handleClickOutside)
       document.removeEventListener('focusin', handleFocus)
       document.removeEventListener('focusout', handleBlur)
