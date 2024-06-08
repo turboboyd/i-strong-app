@@ -1,16 +1,15 @@
-import { Capacitor } from '@capacitor/core'
-import { Keyboard } from '@capacitor/keyboard'
-
 import { useEffect } from 'react'
+import { Keyboard, KeyboardInfo } from '@capacitor/keyboard'
+import { Capacitor } from '@capacitor/core'
 
 const useKeyboard = () => {
   useEffect(() => {
-    const handleKeyboardWillShow = async (info: any) => {
+    const handleKeyboardWillShow = async (info: KeyboardInfo) => {
       console.log('Keyboard will show', info)
       await Keyboard.setScroll({ isDisabled: true })
     }
 
-    const handleKeyboardDidShow = (info: any) => {
+    const handleKeyboardDidShow = (info: KeyboardInfo) => {
       console.log('Keyboard did show', info)
     }
 
@@ -36,6 +35,14 @@ const useKeyboard = () => {
       }
     }
 
+    const handleTouchStartOutside = (event: TouchEvent) => {
+      const target = event.target as HTMLElement
+      if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+        console.log('Touch outside detected, hiding keyboard')
+        Keyboard.hide()
+      }
+    }
+
     const handleFocus = async () => {
       console.log('Input focused, disabling scroll and showing accessory bar')
       await Keyboard.setScroll({ isDisabled: true })
@@ -54,9 +61,10 @@ const useKeyboard = () => {
     Keyboard.addListener('keyboardWillHide', handleKeyboardWillHide)
     Keyboard.addListener('keyboardDidHide', handleKeyboardDidHide)
 
-    // Подписка на события прокрутки и клика вне инпута
+    // Подписка на события прокрутки, клика и касания вне инпута
     if (Capacitor.isNativePlatform()) {
       window.addEventListener('scroll', handleScroll)
+      document.addEventListener('touchstart', handleTouchStartOutside)
     }
     document.addEventListener('click', handleClickOutside)
     document.addEventListener('focusin', handleFocus)
@@ -67,6 +75,7 @@ const useKeyboard = () => {
       Keyboard.removeAllListeners()
       if (Capacitor.isNativePlatform()) {
         window.removeEventListener('scroll', handleScroll)
+        document.removeEventListener('touchstart', handleTouchStartOutside)
       }
       document.removeEventListener('click', handleClickOutside)
       document.removeEventListener('focusin', handleFocus)
@@ -77,6 +86,7 @@ const useKeyboard = () => {
 
 const MyComponent: React.FC = () => {
   useKeyboard()
+
   return (
     <div>
       <h1>Контроль прокрутки клавиатуры</h1>
