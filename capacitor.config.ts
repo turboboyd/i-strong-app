@@ -9,10 +9,10 @@ const config: CapacitorConfig = {
     // Uncomment the URL you want to use
 
     // Development
-    url: 'http://192.168.178.54:3000/', // Denis
+    // url: 'http://192.168.178.54:3000/', // Denis
 
     // Staging
-    // url: 'https://i-strong-app.vercel.app',
+    url: 'https://i-strong-app.vercel.app',
     // allowNavigation: [
     //   'i-strong-app.vercel.app', // Разрешенные домены для навигации
     //   'front.istrongapp.com',
