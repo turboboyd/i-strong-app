@@ -2,7 +2,7 @@ import { LocalNotifications } from '@capacitor/local-notifications'
 
 import { IconArrow } from '@/shared/icons'
 import { ImageCapybaraDeletion } from '@/shared/images'
-
+const BASE_URL = `https://i-strong-app.vercel.app`
 interface NotificationConfig {
   id: number
   title: string
@@ -17,7 +17,7 @@ const notifications: NotificationConfig[] = [
     id: 1,
     title: 'Нові челенджі',
     body: 'Прийшли нові челенджі. Перейдіть за посиланням для перегляду.',
-    url: '/challenges?path=new',
+    url: `${BASE_URL}/challenges?path=new`,
     schedule: { at: new Date(new Date().setHours(10, 0, 0)) }, // В 10:00
     attachments: [{ id: 'challenges-image', url: 'path_to_your_image/challenges_image.png' }],
   },
@@ -25,7 +25,7 @@ const notifications: NotificationConfig[] = [
     id: 2,
     title: 'Запис в щоденник',
     body: 'Зробіть запис в щоденник. Перейдіть за посиланням.',
-    url: '/diary',
+    url: `${BASE_URL}/diary`,
     schedule: { at: new Date(new Date().setHours(12, 0, 0)) }, // В 12:00
     attachments: [{ id: 'diary-image', url: 'path_to_your_image/diary_image.png' }],
   },
@@ -33,7 +33,7 @@ const notifications: NotificationConfig[] = [
     id: 3,
     title: 'Тест',
     body: 'Як ти себе почуваеш?',
-    url: '/diary',
+    url: `${BASE_URL}/diary`,
     schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
     attachments: [{ id: 'test-image', url: '/images/icon-arrow.svg' }], // Используйте URL вашего SVG-файла
   },
@@ -41,7 +41,7 @@ const notifications: NotificationConfig[] = [
     id: 4,
     title: 'IconArrow',
     body: 'Как вы себя чувствуете сегодня?',
-    url: '/diary',
+    url: `${BASE_URL}/diary`,
     schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
     attachments: [{ id: 'test2-image', url: `${IconArrow}` }],
   },
@@ -49,7 +49,7 @@ const notifications: NotificationConfig[] = [
     id: 5,
     title: 'ImageCapybaraDeletion',
     body: 'Как вы себя чувствуете сегодня?',
-    url: '/diary',
+    url: `${BASE_URL}/diary`,
     schedule: { every: 'minute', count: 2, repeats: true }, // Каждые 3 минуты
     attachments: [{ id: 'test2-image', url: `${ImageCapybaraDeletion}` }],
   },
@@ -57,7 +57,7 @@ const notifications: NotificationConfig[] = [
     id: 6,
     title: 'arrow.svg',
     body: 'Як ти себе почуваеш?',
-    url: '/diary',
+    url: `${BASE_URL}/diary`,
     schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
     attachments: [{ id: 'test-image', url: '/src/shared/icons/arrow.svg' }], // Используйте URL вашего SVG-файла
   },
@@ -65,7 +65,7 @@ const notifications: NotificationConfig[] = [
     id: 6,
     title: 'arrow.svg',
     body: 'Як ти себе почуваеш?',
-    url: '/diary',
+    url: `${BASE_URL}/diary`,
     schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
     attachments: [{ id: 'test-image', url: '/src/shared/images/capybara-avatar.png' }], // Используйте URL вашего SVG-файла
   },
