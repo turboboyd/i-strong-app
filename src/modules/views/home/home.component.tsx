@@ -1,4 +1,5 @@
 import { QuotesDayComponent } from './elements'
+import MyComponent from './test'
 
 import { FC, useEffect } from 'react'
 
@@ -9,7 +10,6 @@ import { useCurrentChallengeDetails } from '@/shared/hooks/useChallengeMutations
 import MoodTrackerComponent from '../../../shared/components/templates/mood-tracker/mood-tracker.component'
 
 import styles from './home.module.scss'
-import MyComponent from './test'
 
 //interface
 interface IHome {}

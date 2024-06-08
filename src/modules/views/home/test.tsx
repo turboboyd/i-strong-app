@@ -1,5 +1,6 @@
-import { useEffect } from 'react'
 import { Keyboard } from '@capacitor/keyboard'
+
+import { useEffect } from 'react'
 
 const useHideKeyboardOnClickOutside = () => {
   useEffect(() => {

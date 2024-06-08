@@ -10,7 +10,6 @@ import 'swiper/css'
 export const viewport: Viewport = initialViewport
 // export const metadata: Metadata = initialMetadata
 
-import { LocalNotifications } from '@capacitor/local-notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
 
 import { mainFont } from '@/fonts'
@@ -50,6 +49,7 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
   }, [errorText, successfulText])
 
   useEffect(() => {
+    // Schedule notifications when the component mounts
     scheduleNotifications()
   }, [])
 
