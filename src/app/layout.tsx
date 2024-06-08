@@ -18,6 +18,7 @@ import { initialMetadata, initialViewport } from '@/metadata'
 import { RootLayoutComponent } from '@/modules/layouts'
 import { useTanStackClient } from '@/packages/tanstack-client'
 import { useCommonStore } from '@/shared/stores'
+import { scheduleNotifications } from '@/utils/nativeApp/notifications'
 //interface
 interface IRootLayout {
   entry: ReactNode
@@ -30,7 +31,7 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
   const handleChangeCommonStore = useCommonStore((state) => state.handleChangeCommonStore)
   const errorText = useCommonStore((state) => state.errorText)
   const successfulText = useCommonStore((state) => state.successfulText)
-
+  const { queryClient } = useTanStackClient()
   useEffect(() => {
     const handleClick = () => {
       if (errorText) {
@@ -47,51 +48,11 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
     }
   }, [errorText, successfulText])
 
-  const { queryClient } = useTanStackClient()
-  const scheduleNotification = async () => {
-    await LocalNotifications.requestPermissions()
+  useEffect(() => {
+    // Schedule notifications when the component mounts
+    scheduleNotifications()
+  }, [])
 
-    await LocalNotifications.schedule({
-      notifications: [
-        {
-          title: 'Тестовое уведомление',
-          body: 'Это тестовое уведомление, которое приходит каждую минуту.',
-          id: 1,
-          schedule: { every: 'minute' },
-          actionTypeId: '',
-          extra: null,
-        },
-      ],
-    })
-  }
-
-  scheduleNotification()
-  const scheduleNotification2 = async () => {
-    await LocalNotifications.requestPermissions()
-
-    await LocalNotifications.schedule({
-      notifications: [
-        {
-          title: 'Тестовое уведомление',
-          body: 'Это тестовое уведомление, которое приходит каждую минуту.',
-          id: 1,
-          schedule: { every: 'minute' },
-          actionTypeId: '',
-          extra: null,
-        },
-        {
-          title: 'Пора спать',
-          body: 'Уже 00:10, пора идти спать.',
-          id: 2,
-          schedule: { at: new Date(new Date().setHours(0, 10)) },
-          actionTypeId: '',
-          extra: null,
-        },
-      ],
-    })
-  }
-
-  scheduleNotification2()
   //return
   return (
     <html lang='uk' className={mainFont.className}>
