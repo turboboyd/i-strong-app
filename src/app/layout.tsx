@@ -18,13 +18,6 @@ import { initialMetadata, initialViewport } from '@/metadata'
 import { RootLayoutComponent } from '@/modules/layouts'
 import { useTanStackClient } from '@/packages/tanstack-client'
 import { useCommonStore } from '@/shared/stores'
-import {
-  hideKeyboard,
-  setupKeyboardListeners,
-  showKeyboard,
-  // setKeyboardStyle,
-  // setKeyboardResizeMode,
-} from '@/utils/native-app/keyboard'
 import { scheduleNotifications } from '@/utils/native-app/notifications'
 
 //interface
@@ -57,20 +50,7 @@ const RootLayout: FC<Readonly<IRootLayout>> = ({ home, entry }) => {
   }, [errorText, successfulText])
 
   useEffect(() => {
-    // Schedule notifications when the component mounts
     scheduleNotifications()
-
-    // Setup keyboard listeners when the component mounts
-    setupKeyboardListeners()
-
-    // Optionally set keyboard style and resize mode
-    // setKeyboardStyle('dark')
-    // setKeyboardResizeMode('body')
-
-    // Hide keyboard on component unmount (cleanup)
-    return () => {
-      hideKeyboard()
-    }
   }, [])
 
   //return

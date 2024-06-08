@@ -9,6 +9,7 @@ import { useCurrentChallengeDetails } from '@/shared/hooks/useChallengeMutations
 import MoodTrackerComponent from '../../../shared/components/templates/mood-tracker/mood-tracker.component'
 
 import styles from './home.module.scss'
+import MyComponent from './test'
 
 //interface
 interface IHome {}
@@ -25,8 +26,8 @@ export const HomeComponent: FC<Readonly<IHome>> = () => {
   //return
   return (
     <div className={`${styles.home} container`}>
-      <h1 className={`${styles.home__title} title`}>Головна 111</h1>
-
+      <h1 className={`${styles.home__title} title`}>Головна</h1>
+      <MyComponent />
       <SectionSwiperComponent
         title={'Щоденні челенджі'}
         data={challenges}
