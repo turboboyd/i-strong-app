@@ -19,7 +19,9 @@ const notifications: NotificationConfig[] = [
     body: 'Прийшли нові челенджі. Перейдіть за посиланням для перегляду.',
     url: `${BASE_URL}/challenges?path=new`,
     schedule: { at: new Date(new Date().setHours(10, 0, 0)) }, // В 10:00
-    attachments: [{ id: 'challenges-image', url: 'path_to_your_image/challenges_image.png' }],
+    attachments: [
+      { id: 'challenges-image', url: `${BASE_URL}/path_to_your_image/challenges_image.png` },
+    ],
   },
   {
     id: 2,
@@ -27,22 +29,22 @@ const notifications: NotificationConfig[] = [
     body: 'Зробіть запис в щоденник. Перейдіть за посиланням.',
     url: `${BASE_URL}/diary`,
     schedule: { at: new Date(new Date().setHours(18, 0, 0)) }, // В 18:00
-    attachments: [{ id: 'diary-image', url: 'path_to_your_image/diary_image.png' }],
+    attachments: [{ id: 'diary-image', url: `${BASE_URL}/path_to_your_image/diary_image.png` }],
   },
   {
     id: 3,
     title: 'Тест',
     body: 'Як ти себе почуваеш?',
     url: `${BASE_URL}/diary`,
-    schedule: { every: 'minute', count: 2, repeats: true }, // Каждые 3 минуты
-    attachments: [{ id: 'test-image', url: '/images/icon-arrow.svg' }], // Используйте URL вашего SVG-файла
+    schedule: { every: 'minute', count: 1, repeats: true }, // Каждые 1 минуты
+    attachments: [{ id: 'test-image', url: `${BASE_URL}/images/icon-arrow.svg` }], // Используйте URL вашего SVG-файла
   },
   {
     id: 4,
     title: 'IconArrow',
     body: 'Как вы себя чувствуете сегодня?',
     url: `${BASE_URL}/challenges?path=new`,
-    schedule: { every: 'minute', count: 2, repeats: true }, // Каждые 3 минуты
+    schedule: { every: 'minute', count: 1, repeats: true }, // Каждые 1 минуты
     attachments: [{ id: 'test2-image', url: IconArrow }],
   },
 ]
