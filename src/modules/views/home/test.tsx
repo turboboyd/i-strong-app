@@ -1,7 +1,7 @@
 import { Capacitor } from '@capacitor/core'
 import { Keyboard, KeyboardInfo } from '@capacitor/keyboard'
 
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 const useKeyboard = () => {
   useEffect(() => {
@@ -48,9 +48,6 @@ const useKeyboard = () => {
       console.log('Input focused, disabling scroll and showing accessory bar')
       await Keyboard.setScroll({ isDisabled: true })
       await Keyboard.setAccessoryBarVisible({ isVisible: true })
-      // if (Capacitor.platform === 'ios') {
-      //   await Keyboard.setStyle({ style: KeyboardStyle.Dark }); // Установка темного стиля клавиатуры
-      // }
     }
 
     const handleBlur = async () => {
@@ -59,13 +56,13 @@ const useKeyboard = () => {
       await Keyboard.setAccessoryBarVisible({ isVisible: false })
     }
 
-    // Подписка на события показа и скрытия клавиатуры
+    // Subscribe to keyboard events
     Keyboard.addListener('keyboardWillShow', handleKeyboardWillShow)
     Keyboard.addListener('keyboardDidShow', handleKeyboardDidShow)
     Keyboard.addListener('keyboardWillHide', handleKeyboardWillHide)
     Keyboard.addListener('keyboardDidHide', handleKeyboardDidHide)
 
-    // Подписка на события прокрутки, клика и касания вне инпута
+    // Subscribe to scroll, click, and touch events
     if (Capacitor.isNativePlatform()) {
       window.addEventListener('scroll', handleScroll)
       document.addEventListener('touchstart', handleTouchStartOutside)
@@ -75,7 +72,7 @@ const useKeyboard = () => {
     document.addEventListener('focusout', handleBlur)
 
     return () => {
-      // Отписка от событий при размонтировании компонента
+      // Unsubscribe from events on component unmount
       Keyboard.removeAllListeners()
       if (Capacitor.isNativePlatform()) {
         window.removeEventListener('scroll', handleScroll)
