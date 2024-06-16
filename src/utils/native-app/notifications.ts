@@ -10,6 +10,7 @@ interface NotificationConfig {
   url: string
   schedule: { at?: Date; every?: 'minute'; count?: number; repeats?: boolean }
   attachments: { id: string; url: string }[]
+  smallIcon: 'ic_stat_icon1'
 }
 
 const notifications: NotificationConfig[] = [
@@ -22,6 +23,7 @@ const notifications: NotificationConfig[] = [
     attachments: [
       { id: 'challenges-image', url: `${BASE_URL}/path_to_your_image/challenges_image.png` },
     ],
+    smallIcon: 'ic_stat_icon1',
   },
   {
     id: 2,
@@ -30,6 +32,7 @@ const notifications: NotificationConfig[] = [
     url: `${BASE_URL}/diary`,
     schedule: { at: new Date(new Date().setHours(18, 0, 0)) }, // В 18:00
     attachments: [{ id: 'diary-image', url: `${BASE_URL}/path_to_your_image/diary_image.png` }],
+    smallIcon: 'ic_stat_icon1',
   },
   {
     id: 3,
@@ -38,6 +41,7 @@ const notifications: NotificationConfig[] = [
     url: `${BASE_URL}/diary`,
     schedule: { every: 'minute', count: 1, repeats: true }, // Каждые 1 минуты
     attachments: [{ id: 'test-image', url: `${BASE_URL}/images/icon-arrow.svg` }], // Используйте URL вашего SVG-файла
+    smallIcon: 'ic_stat_icon1',
   },
   {
     id: 4,
@@ -46,6 +50,7 @@ const notifications: NotificationConfig[] = [
     url: `${BASE_URL}/challenges?path=new`,
     schedule: { every: 'minute', count: 1, repeats: true }, // Каждые 1 минуты
     attachments: [{ id: 'test2-image', url: IconArrow }],
+    smallIcon: IconArrow,
   },
 ]
 
@@ -72,6 +77,7 @@ export const scheduleNotifications = async () => {
         actionTypeId: '',
         extra: { url: notification.url },
         attachments: notification.attachments,
+        smallIcon: notification.smallIcon,
       })),
     })
   } catch (error) {
