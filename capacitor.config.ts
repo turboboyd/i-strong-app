@@ -25,7 +25,7 @@ const config: CapacitorConfig = {
   plugins: {
     LocalNotifications: {
       // smallIcon: 'ic_stat_icon_config_sample',
-      iconColor: '#488AFF',
+      iconColor: '#F25B48',
       sound: 'beep.wav',
     },
     // Keyboard: {
