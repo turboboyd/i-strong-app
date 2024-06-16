@@ -26,7 +26,7 @@ const notifications: NotificationConfig[] = [
     title: 'Запис в щоденник',
     body: 'Зробіть запис в щоденник. Перейдіть за посиланням.',
     url: `${BASE_URL}/diary`,
-    schedule: { at: new Date(new Date().setHours(12, 0, 0)) }, // В 12:00
+    schedule: { at: new Date(new Date().setHours(18, 0, 0)) }, // В 18:00
     attachments: [{ id: 'diary-image', url: 'path_to_your_image/diary_image.png' }],
   },
   {
@@ -34,40 +34,16 @@ const notifications: NotificationConfig[] = [
     title: 'Тест',
     body: 'Як ти себе почуваеш?',
     url: `${BASE_URL}/diary`,
-    schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
+    schedule: { every: 'minute', count: 2, repeats: true }, // Каждые 3 минуты
     attachments: [{ id: 'test-image', url: '/images/icon-arrow.svg' }], // Используйте URL вашего SVG-файла
   },
   {
     id: 4,
     title: 'IconArrow',
     body: 'Как вы себя чувствуете сегодня?',
-    url: `${BASE_URL}/diary`,
-    schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
-    attachments: [{ id: 'test2-image', url: `${IconArrow}` }],
-  },
-  {
-    id: 5,
-    title: 'ImageCapybaraDeletion',
-    body: 'Как вы себя чувствуете сегодня?',
-    url: `${BASE_URL}/diary`,
+    url: `${BASE_URL}/challenges?path=new`,
     schedule: { every: 'minute', count: 2, repeats: true }, // Каждые 3 минуты
-    attachments: [{ id: 'test2-image', url: `${ImageCapybaraDeletion}` }],
-  },
-  {
-    id: 6,
-    title: 'arrow.svg',
-    body: 'Як ти себе почуваеш?',
-    url: `${BASE_URL}/diary`,
-    schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
-    attachments: [{ id: 'test-image', url: '/src/shared/icons/arrow.svg' }], // Используйте URL вашего SVG-файла
-  },
-  {
-    id: 6,
-    title: 'arrow.svg',
-    body: 'Як ти себе почуваеш?',
-    url: `${BASE_URL}/diary`,
-    schedule: { every: 'minute', count: 3, repeats: true }, // Каждые 3 минуты
-    attachments: [{ id: 'test-image', url: '/src/shared/images/capybara-avatar.png' }], // Используйте URL вашего SVG-файла
+    attachments: [{ id: 'test2-image', url: IconArrow }],
   },
 ]
 
